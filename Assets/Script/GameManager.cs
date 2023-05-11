@@ -5,7 +5,7 @@ using System.Collections;
 public class GameManager : MonoBehaviour
 {
     [SerializeField]
-    private GameObject player;
+    private Player player;
 
     [SerializeField]
     private Transform diceSet;
@@ -69,6 +69,12 @@ public class GameManager : MonoBehaviour
         // 停止進度條變動
         progressSlider.value = 0f;
 
+        // 獲取 Player 的 DiceNumber
+        int diceNumber = player.DiceNumber;
+
+        // 生成骰子
+        GenerateDice(diceNumber);
+
         // 滾動骰子
         foreach (Transform dice in diceSet)
         {
@@ -89,8 +95,45 @@ public class GameManager : MonoBehaviour
         }
 
         Debug.Log("Total Dice Value: " + totalDiceValue);
-
         rollingDice = false;
+    }
+
+    private void GenerateDice(int diceNumber)
+    {
+        // 移除原有的骰子
+        foreach (Transform dice in diceSet)
+        {
+            Destroy(dice.gameObject);
+        }
+
+        // 計算生成骰子的起始位置
+        float startX = -8f;
+        float startY = 4f;
+        int rowLimit = 6;
+        int currentColumn = 0;
+        int currentRow = 0;
+
+        // 生成新的骰子
+        for (int i = 0; i < diceNumber; i++)
+        {
+            GameObject diceObject = new GameObject("Dice");
+            diceObject.transform.parent = diceSet;
+
+            // 計算骰子的位置
+            float posX = startX + (currentColumn * 1.5f);
+            float posY = startY - (currentRow * 1.5f);
+            diceObject.transform.position = new Vector3(posX, posY, 0f);
+
+            diceObject.AddComponent<SpriteRenderer>();
+            diceObject.AddComponent<Dice>();
+
+            currentRow++;
+            if (currentRow >= rowLimit)
+            {
+                currentRow = 0;
+                currentColumn++;
+            }
+        }
     }
 
     private IEnumerator RollSingleDice(Transform dice)
@@ -101,7 +144,10 @@ public class GameManager : MonoBehaviour
         // 開始滾動骰子
         int randomValue = Random.Range(0, 6);
         SpriteRenderer spriteRenderer = dice.GetComponent<SpriteRenderer>();
-        spriteRenderer.sprite = diceFaces[randomValue];
+        if (spriteRenderer != null)
+        {
+            spriteRenderer.sprite = diceFaces[randomValue];
+        }
 
         // 隨機停留的骰面
         int targetValue = Random.Range(0, 6);
@@ -109,18 +155,27 @@ public class GameManager : MonoBehaviour
         float timer = 0f;
         while (timer < delay)
         {
-            int newValue = Random.Range(0, 6);
-            if (newValue != randomValue)
+            // ...
+
+            if (spriteRenderer != null)
             {
-                randomValue = newValue;
-                spriteRenderer.sprite= diceFaces[randomValue];
+                int newValue = Random.Range(0, 6);
+                if (newValue != randomValue)
+                {
+                    randomValue = newValue;
+                    spriteRenderer.sprite = diceFaces[randomValue];
+                }
             }
+
             timer += Time.deltaTime;
             yield return null;
         }
 
         // 停止骰子的旋轉
-        spriteRenderer.sprite = diceFaces[targetValue];
+        if (spriteRenderer != null)
+        {
+            spriteRenderer.sprite = diceFaces[targetValue];
+        }
     }
 
     private int GetDiceValue(Transform dice)
