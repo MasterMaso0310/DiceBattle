@@ -13,7 +13,6 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private GameObject progressBar;
 
-    public float agilitySpeed = 1f;  // 敏捷速度
     public float rollDuration = 2f;  // 骰子滾動的時間（秒）
 
     public Sprite[] diceFaces;  // 骰子各面的圖片
@@ -36,6 +35,9 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        // 遊戲開始後一直跑條
+        // StartRollDice();
+        // 按下鍵盤空白鍵才開始跑條
         if (Input.GetKeyDown(KeyCode.Space) && !rollingDice)
         {
             StartRollDice();
@@ -54,8 +56,8 @@ public class GameManager : MonoBehaviour
         // 顯示進度條
         progressSlider.value = 1f;
 
-        // 按敏捷速度設置進度條的移動時間
-        float progressDuration = 1f / agilitySpeed;
+        // 計算進度條的移動時間
+        float progressDuration = CalculateProgressDuration(player.AgilitySpeed);
 
         // 移動進度條
         float progressTimer = 0f;
@@ -98,8 +100,20 @@ public class GameManager : MonoBehaviour
         rollingDice = false;
     }
 
+    private float CalculateProgressDuration(float agilitySpeed)
+    {
+        // 按敏捷速度計算進度條的移動時間
+        // 每1% 需要花費 log(i) 秒的時間，i 為敏捷速度的數值，如果這麼算，則敏捷越高進度條跑越慢
+        // 如果想要敏捷越高花費時間越短，則應該敏捷數值要與progressDuration成反比
+        float progressDuration = (50 / agilitySpeed);
+        return progressDuration;
+    }
+
     private void GenerateDice(int diceNumber)
     {
+        // 限制 diceNumber 的範圍在 1 到 12 之間
+        diceNumber = Mathf.Clamp(diceNumber, 1, 12);
+
         // 移除原有的骰子
         foreach (Transform dice in diceSet)
         {
@@ -139,7 +153,7 @@ public class GameManager : MonoBehaviour
     private IEnumerator RollSingleDice(Transform dice)
     {
         // 停留時間
-        float delay = 2f;
+        float delay = 1f;
 
         // 開始滾動骰子
         int randomValue = Random.Range(0, 6);

@@ -5,15 +5,20 @@ public class Player : MonoBehaviour
     [SerializeField]
     private int diceNumber; // 骰子數量
 
+    [SerializeField]
+    private float agilitySpeed; // 敏捷速度
+
     public int DiceNumber
     {
         get { return diceNumber; }
-        set { diceNumber = value; }
+        private set { diceNumber = Mathf.Clamp(value, 1, 12); }
     }
 
-    // 設定骰子數量的方法
-    public void SetDiceNumber(int number)
+    public float AgilitySpeed
     {
-        DiceNumber = number;
+        get { return agilitySpeed; }
+        private set { agilitySpeed = value; }
     }
+
+    // 在這裡可以添加其他屬性和方法
 }
