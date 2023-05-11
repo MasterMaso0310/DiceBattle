@@ -1,0 +1,10 @@
+Library
+*.png
+*.meta
+Packages
+UserSettings
+Logs
+Temp
+*.csproj
+*.sln
+TextMesh Pro
