@@ -74,6 +74,12 @@
      <Compile Include="Assets\Script\Dice.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
      <Compile Include="Assets\Script\Player.cs" />
+     <Compile Include="Assets\Script\CharacterActionController.cs" />
+     <Compile Include="Assets\Script\Action.cs" />
+     <Compile Include="Assets\Script\DiceController.cs" />
+     <Compile Include="Assets\Script\ActionValueController.cs" />
+     <Compile Include="Assets\Script\GameManager_old.cs" />
+     <Compile Include="Assets\Script\Character.cs" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />

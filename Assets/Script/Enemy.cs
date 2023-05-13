@@ -4,15 +4,12 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public float AgilitySpeed;  // 敵人的敏捷速度
 
-    // Update is called once per frame
-    void Update()
+    // 執行敵人的動作
+    public void PerformAction()
     {
-        
+        // 在這裡實現敵人的動作邏輯
+        Debug.Log("Enemy performing action");
     }
 }

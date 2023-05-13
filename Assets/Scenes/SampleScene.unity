@@ -152,12 +152,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c61e216cbaa860b4687c6f771c54cd60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 1423095130}
-  enemy: {fileID: 0}
-  diceSet: {fileID: 383983167}
-  progressBar: {fileID: 2042278120}
-  rollDuration: 2
-  diceFaces: []
+  playerController: {fileID: 0}
+  enemyController: {fileID: 0}
+  playerHealth: 100
+  enemyHealth: 100
+  resultPanel: {fileID: 0}
+  resultText: {fileID: 0}
 --- !u!4 &2401905
 Transform:
   m_ObjectHideFlags: 0
@@ -171,7 +171,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &32444549
 GameObject:
@@ -434,7 +434,7 @@ Transform:
   - {fileID: 1197515376}
   - {fileID: 1035632133}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &519420028
 GameObject:
@@ -831,7 +831,7 @@ RectTransform:
   - {fileID: 2042278121}
   - {fileID: 1453584939}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1074,17 +1074,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1386926172}
   m_CullTransparentMesh: 1
---- !u!114 &1423095130 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8825653352983868728, guid: bb9bc10a9aeabfc42ac032b40dcd7a6b, type: 3}
-  m_PrefabInstance: {fileID: 8825653351577550946}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b42a7cfd1828b34ba2d04743f5e2a96, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1453584938
 GameObject:
   m_ObjectHideFlags: 0
@@ -1109,7 +1098,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1453584938}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1119,7 +1108,7 @@ RectTransform:
   - {fileID: 580919803}
   m_Father: {fileID: 1078331979}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 272.5, y: -188.2}
@@ -1242,7 +1231,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1568003940 stripped
 Transform:
@@ -1332,7 +1321,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1651224149
 MonoBehaviour:
@@ -1346,6 +1335,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14930763170e5b04d928d2787e6b9a0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AgilitySpeed: 30
 --- !u!1 &1904948941
 GameObject:
   m_ObjectHideFlags: 0
@@ -1475,7 +1465,7 @@ GameObject:
   - component: {fileID: 2042278121}
   - component: {fileID: 2042278122}
   m_Layer: 5
-  m_Name: ProgressBar
+  m_Name: ProgressBar_Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

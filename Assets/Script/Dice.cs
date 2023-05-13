@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class Dice : MonoBehaviour
 {
-    private int diceValue;
+    private int faceValue;
 
-    public void SetValue(int value)
+    // 你可能還需要一個方法來設定faceValue的值，例如：
+    public void RollDice()
     {
-        diceValue = value;
+        faceValue = Random.Range(1, 7);
     }
 
-    public int GetValue()
+    public int GetFaceValue()
     {
-        return diceValue;
+        return faceValue;
     }
 }
