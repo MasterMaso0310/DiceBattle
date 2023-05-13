@@ -8,6 +8,9 @@ public class GameManager : MonoBehaviour
     private Player player;
 
     [SerializeField]
+    private Enemy enemy;
+
+    [SerializeField]
     private Transform diceSet;
 
     [SerializeField]
