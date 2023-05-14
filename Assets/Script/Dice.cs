@@ -4,14 +4,45 @@ using UnityEngine;
 
 public class Dice : MonoBehaviour
 {
+    // 骰子的面值
     private int faceValue;
+    private Sprite[] diceFaces; // 儲存骰子面值的精靈
+    private SpriteRenderer sr; // 骰子的精靈渲染器
+    private bool isRolling = false; // 骰子是否正在滾動
 
-    // 你可能還需要一個方法來設定faceValue的值，例如：
-    public void RollDice()
+    private void Start()
     {
-        faceValue = Random.Range(1, 7);
+        sr = GetComponent<SpriteRenderer>();
+        diceFaces = new Sprite[6];
+        for (int i = 0; i < 6; i++)
+        {
+            diceFaces[i] = Resources.Load<Sprite>("DiceFaces/Dice" + (i + 1));
+        }
     }
 
+    // 設定骰子的面值
+    public void SetFaceValue(int value)
+    {
+        isRolling = false;
+        faceValue = value;
+        sr.sprite = diceFaces[value - 1];
+    }
+
+    public void StartRolling()
+    {
+        isRolling = true;
+        StartCoroutine(RollingAnimation());
+    }
+
+    private IEnumerator RollingAnimation()
+    {
+        while (isRolling)
+        {
+            sr.sprite = diceFaces[Random.Range(0, 6)];
+            yield return new WaitForSeconds(0.1f);
+        }
+    }
+    
     public int GetFaceValue()
     {
         return faceValue;

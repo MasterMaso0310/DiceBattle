@@ -4,10 +4,16 @@ using UnityEngine;
 
 public class CharacterActionController : MonoBehaviour
 {
-    public GameManager gameManager;
+    public GameManager gameManager;  // 在這裡添加gameManager變數
+
+    void Start()
+    {
+        gameManager = GameManager.instance;
+    }
 
     public void PerformAction(int[] diceValues)
     {
+        Debug.Log(gameObject.name + " is taking action.");
         // 計算基於骰子值的攻擊力、防禦力，或其他行動
         int attackPower = 0;
         foreach (int value in diceValues)
@@ -25,5 +31,11 @@ public class CharacterActionController : MonoBehaviour
         {
             gameManager.DealDamageToPlayer(attackPower);
         }
+    }
+
+    // 添加 OnDestroy 方法
+    void OnDestroy()
+    {
+        Debug.Log("CharacterActionController on " + gameObject.name + " was destroyed.", this);
     }
 }
