@@ -9,7 +9,8 @@ public class Dice : MonoBehaviour
     private Sprite[] diceFaces; // 儲存骰子面值的精靈
     private SpriteRenderer sr; // 骰子的精靈渲染器
     private bool isRolling = false; // 骰子是否正在滾動
-
+    private IEnumerator rollingAnimation; // 用來儲存滾動骰子的協程
+    
     private void Start()
     {
         sr = GetComponent<SpriteRenderer>();
@@ -32,6 +33,15 @@ public class Dice : MonoBehaviour
     {
         isRolling = true;
         StartCoroutine(RollingAnimation());
+    }
+
+    public void StopRolling()
+    {
+        isRolling = false;
+        if (rollingAnimation != null) // 確定rollingAnimation非null才停止
+        {
+            StopCoroutine(rollingAnimation);
+        }
     }
 
     private IEnumerator RollingAnimation()

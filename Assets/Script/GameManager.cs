@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     // 這是唯一的GameManager實例
     public static GameManager instance;
     public bool isActionTaken = false;
+    public bool canIncreaseActionValue = true;
     // 健康值可以根據你的遊戲設計進行設定
     public int playerHealth = 100;
     public int enemyHealth = 100;
@@ -86,10 +87,5 @@ public class GameManager : MonoBehaviour
             // 否則，這個物件就是GameManager的唯一實例
             instance = this;
         }
-    }
-
-    public void ActionTaken()
-    {
-        isActionTaken = true;
     }
 }

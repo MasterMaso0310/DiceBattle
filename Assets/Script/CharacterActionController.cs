@@ -32,10 +32,4 @@ public class CharacterActionController : MonoBehaviour
             gameManager.DealDamageToPlayer(attackPower);
         }
     }
-
-    // 添加 OnDestroy 方法
-    void OnDestroy()
-    {
-        Debug.Log("CharacterActionController on " + gameObject.name + " was destroyed.", this);
-    }
 }

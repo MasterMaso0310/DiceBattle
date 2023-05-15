@@ -10,7 +10,8 @@ public class DiceController : MonoBehaviour
     public List<Dice> dices;
     public int faceValue;
 
-    private bool dicesCreated = false;
+    private bool dicesCreated = false; // 這個新的布林值可以用來追蹤骰子是否已經全部生成
+    private bool isRolling = false;
     private Vector3 spawnPos;
     private int columnCounter = 0;
     private int rowCounter = 0;
@@ -30,9 +31,16 @@ public class DiceController : MonoBehaviour
             StartCoroutine(CreateDices());
             dicesCreated = true;
         }
-        if (actionValueController.GetActionValue() >= 80f)
+        float actionValue = actionValueController.GetActionValue();
+        if (actionValue >= 10f && actionValue < 80f)
         {
-            SetDiceValues();
+            StartRolling();
+            isRolling = true;
+        }
+        else if ((actionValue < 10f || actionValue >= 80f) && isRolling)
+        {
+            StopRolling();
+            isRolling = false;
         }
     }
 
@@ -58,15 +66,25 @@ public class DiceController : MonoBehaviour
                 spawnPos.x += (actionValueController.gameObject.CompareTag("Player")) ? diceHeight : -diceHeight; // 更新 X 座標
             }
 
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.1f);
+        }
+        dicesCreated = true;
+    }
+
+    public void StartRolling()
+    {
+        foreach (var dice in dices)
+        {
+            dice.StartRolling();
         }
     }
 
-    public void SetDiceValues()
+    public void StopRolling()
     {
-        for (int i = 0; i < characterStats.diceCount; i++)
+        foreach (var dice in dices)
         {
-            dices[i].SetFaceValue(Random.Range(1, 7));
+            dice.StopRolling();
+            dice.SetFaceValue(Random.Range(1, 7));
         }
     }
 
